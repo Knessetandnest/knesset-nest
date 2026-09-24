@@ -4,5 +4,5 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
-EXPOSE 5000
-CMD ["gunicorn","config.wsgi:application","--bind","0.0.0.0:5000","--workers","3","--threads","2","--timeout","60"]
+EXPOSE 10000
+CMD ["sh","-c","gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --threads 2 --timeout 60"]
