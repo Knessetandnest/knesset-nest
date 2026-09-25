@@ -5,4 +5,4 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 EXPOSE 10000
-CMD ["sh","-c","gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --threads 2 --timeout 60"]
+CMD python manage.py migrate && python manage.py setup_staff_roles && python manage.py createsuperuser --noinput || true && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT
